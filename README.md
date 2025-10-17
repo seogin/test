@@ -11,6 +11,8 @@ NEW ADMIN ROUTES AND API GO UNDER `routes/web.php`
 api.php will come later when we work on non-admin features
 ~~NEW API GO UNDER `routes/api.php`~~
 
+Run `php artisan storage:link` so members uploaded files can be accessed from your browser.
+
 run using `npm run dev`
 
 

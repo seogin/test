@@ -19,6 +19,8 @@ return new class extends Migration
             $table->string('country')->nullable(); 
             $table->boolean('verified')->default(value: false);
             $table->enum('subscription', ['Free', 'Paid'])->default('Free');
+            $table->string('profile_photo')->nullable();
+            $table->json('uploaded_files')->nullable();
             $table->timestamps();
         });
     }

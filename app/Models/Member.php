@@ -21,6 +21,8 @@ class Member extends User
         'country',
         'verified',
         'subscription',
+        'profile_photo',
+        'uploaded_files',
     ];
 
     protected $hidden = [

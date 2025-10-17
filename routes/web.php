@@ -5,14 +5,17 @@ use App\Http\Controllers\AdminAuthController;
 use App\Http\Controllers\AdminDashboardController;
 use App\Http\Controllers\AdminAuthLogController;
 use App\Http\Controllers\MemberRegistrationController;
+use App\Http\Controllers\AdminMemberController;
+use App\Http\Controllers\MemberEmailVerificationController;
 
 Route::get('/', fn() => view('admin.login'))->name('login');
 Route::get('/login', fn() => view('admin.login'));
 Route::post('/login', [AdminAuthController::class, 'login']);
 Route::post('/members/signup', [MemberRegistrationController::class, 'store'])->name('members.signup');
-
-
-
+Route::post('/members/email/verification', [MemberEmailVerificationController::class, 'send'])
+    ->name('members.email.verification.send');
+Route::post('/members/email/verification/verify', [MemberEmailVerificationController::class, 'verify']
+)->name('members.email.verification.verify');
 
 
 Route::middleware(['auth:sanctum'])->group(function () {
@@ -116,6 +119,20 @@ Route::middleware(['auth:sanctum'])
                 return view('admin.members.index', ['members' => $members]);
             })
             ->name('admin.members');
+    });
+
+    Route::middleware('admin.permission:can_create_members')->group(function() {
+        Route::get('/admin/members/create', [AdminMemberController::class, 'create'])->name('admin.members.create');
+        Route::post('/admin/members', [AdminMemberController::class, 'store'])->name('admin.members.store');
+    });
+
+    Route::middleware('admin.permission:can_update_members')->group(function() {
+        Route::get('/admin/members/{member}/edit', [AdminMemberController::class, 'edit'])->name('admin.members.edit');
+        Route::put('/admin/members/{member}', [AdminMemberController::class, 'update'])->name('admin.members.update');
+    });
+
+    Route::middleware('admin.permission:can_read_members')->group(function() {
+        Route::get('/admin/members/{member}/view', [AdminMemberController::class, 'view'])->name('admin.members.view');
     });
 
 Route::middleware(['auth:admin'])->prefix('admin')->group(function() {

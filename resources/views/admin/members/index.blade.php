@@ -17,7 +17,7 @@
             </a>
             @php $current = auth()->user(); @endphp
             @if ($current && $current->can_create_members)
-            <a href=""
+            <a href="{{ route('admin.members.create') }}"
                 style="background-color: navy; color: white; padding: 14px 16px; border-radius: 4px; text-decoration: none;">
                 Add New Member
             </a>
@@ -74,12 +74,12 @@
                                             class="hidden origin-top-right absolute right-0 mt-2 w-36 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 z-10">
                                             <div class="py-1" role="menu" aria-orientation="vertical" aria-labelledby="options-menu">
                                                 @if ($current->can_read_members)
-                                                    <a href=""
+                                                    <a href="{{ route('admin.members.view', $member->id) }}"
                                                         class="block px-4 py-1 text-sm text-gray-700 hover:bg-gray-100"
                                                         role="menuitem">View</a>
                                                 @endif
                                                 @if ($current->can_update_members)
-                                                    <a href=""
+                                                    <a href="{{ route('admin.members.edit', $member->id) }}"
                                                         class="block px-4 py-1 text-sm text-gray-700 hover:bg-gray-100"
                                                         role="menuitem">Edit</a>
                                                 @endif

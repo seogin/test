@@ -10,6 +10,5 @@ class VerifyCsrfToken extends Middleware
 
     protected $except = [
         // Add URIs here if you want to exclude them from CSRF
-        'members/signup',
     ];
 }
